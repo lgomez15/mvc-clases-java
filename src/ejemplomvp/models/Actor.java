@@ -1,4 +1,4 @@
-package ejemplomvp;
+package ejemplomvp.models;
 
 import java.util.ArrayList;
 
@@ -37,5 +37,9 @@ public class Actor {
             return null;
         }
         return new Actor(csv.trim());
+    }
+
+    public String toJson() {
+        return "{\"nombre\": \"" + nombre + "\"}";
     }
 }

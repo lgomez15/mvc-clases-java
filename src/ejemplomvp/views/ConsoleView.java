@@ -1,4 +1,8 @@
-package ejemplomvp;
+package ejemplomvp.views;
+
+import ejemplomvp.models.Pelicula;
+import ejemplomvp.models.Director;
+import ejemplomvp.models.Actor;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ public class ConsoleView {
         System.out.println("6. Listar Películas");
         System.out.println("7. Listar Directores");
         System.out.println("8. Listar Actores");
+        System.out.println("9. Exportar datos");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
     }

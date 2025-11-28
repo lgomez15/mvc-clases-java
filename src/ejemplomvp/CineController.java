@@ -1,5 +1,10 @@
 package ejemplomvp;
 
+import ejemplomvp.models.Actor;
+import ejemplomvp.models.Director;
+import ejemplomvp.models.Pelicula;
+import ejemplomvp.views.ConsoleView;
+
 import java.util.ArrayList;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -56,6 +61,9 @@ public class CineController {
                 break;
             case 8:
                 vista.mostrarActores(actores);
+                break;
+            case 9:
+                exportarDatos();
                 break;
             case 0:
                 guardarDatos();
@@ -247,6 +255,94 @@ public class CineController {
             }
         } catch (IOException e) {
             System.err.println("Error al cargar datos: " + e.getMessage());
+        }
+    }
+
+    private void exportarDatos() {
+        System.out.println("Seleccione el formato de exportación:");
+        System.out.println("1. JSON");
+        System.out.println("2. TXT (delimitado por ;)");
+        int opcion = vista.leerEntero();
+
+        switch (opcion) {
+            case 1:
+                exportarJSON();
+                break;
+            case 2:
+                exportarTXT();
+                break;
+            default:
+                vista.mostrarMensaje("Opción no válida.");
+        }
+    }
+
+    private void exportarJSON() {
+        try {
+            // Exportar Directores
+            StringBuilder jsonDirectores = new StringBuilder("[\n");
+            for (int i = 0; i < directores.size(); i++) {
+                jsonDirectores.append(directores.get(i).toJson());
+                if (i < directores.size() - 1) {
+                    jsonDirectores.append(",\n");
+                }
+            }
+            jsonDirectores.append("\n]");
+            Files.write(Paths.get("directores.json"), jsonDirectores.toString().getBytes(StandardCharsets.UTF_8));
+
+            // Exportar Actores
+            StringBuilder jsonActores = new StringBuilder("[\n");
+            for (int i = 0; i < actores.size(); i++) {
+                jsonActores.append(actores.get(i).toJson());
+                if (i < actores.size() - 1) {
+                    jsonActores.append(",\n");
+                }
+            }
+            jsonActores.append("\n]");
+            Files.write(Paths.get("actores.json"), jsonActores.toString().getBytes(StandardCharsets.UTF_8));
+
+            // Exportar Peliculas
+            StringBuilder jsonPeliculas = new StringBuilder("[\n");
+            for (int i = 0; i < peliculas.size(); i++) {
+                jsonPeliculas.append(peliculas.get(i).toJson());
+                if (i < peliculas.size() - 1) {
+                    jsonPeliculas.append(",\n");
+                }
+            }
+            jsonPeliculas.append("\n]");
+            Files.write(Paths.get("peliculas.json"), jsonPeliculas.toString().getBytes(StandardCharsets.UTF_8));
+
+            vista.mostrarMensaje("Datos exportados a JSON correctamente.");
+        } catch (IOException e) {
+            vista.mostrarMensaje("Error al exportar a JSON: " + e.getMessage());
+        }
+    }
+
+    private void exportarTXT() {
+        try {
+            // Exportar Directores
+            List<String> lineasDirectores = new ArrayList<>();
+            for (Director d : directores) {
+                lineasDirectores.add(d.toCSV());
+            }
+            Files.write(Paths.get("directores.txt"), lineasDirectores, StandardCharsets.UTF_8);
+
+            // Exportar Actores
+            List<String> lineasActores = new ArrayList<>();
+            for (Actor a : actores) {
+                lineasActores.add(a.toCSV());
+            }
+            Files.write(Paths.get("actores.txt"), lineasActores, StandardCharsets.UTF_8);
+
+            // Exportar Peliculas
+            List<String> lineasPeliculas = new ArrayList<>();
+            for (Pelicula p : peliculas) {
+                lineasPeliculas.add(p.toCSV());
+            }
+            Files.write(Paths.get("peliculas.txt"), lineasPeliculas, StandardCharsets.UTF_8);
+
+            vista.mostrarMensaje("Datos exportados a TXT correctamente.");
+        } catch (IOException e) {
+            vista.mostrarMensaje("Error al exportar a TXT: " + e.getMessage());
         }
     }
 }

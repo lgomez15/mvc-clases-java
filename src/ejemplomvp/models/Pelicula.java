@@ -1,4 +1,4 @@
-package ejemplomvp;
+package ejemplomvp.models;
 
 import java.util.ArrayList;
 
@@ -71,5 +71,32 @@ public class Pelicula {
             return null;
         }
         return new Pelicula(titulo, anio);
+    }
+
+    public String toJson() {
+        StringBuilder json = new StringBuilder();
+        json.append("{");
+        json.append("\"titulo\": \"").append(titulo).append("\", ");
+        json.append("\"anio\": ").append(anio).append(", ");
+
+        json.append("\"director\": ");
+        if (director != null) {
+            json.append(director.toJson());
+        } else {
+            json.append("null");
+        }
+        json.append(", ");
+
+        json.append("\"actores\": [");
+        for (int i = 0; i < actores.size(); i++) {
+            json.append(actores.get(i).toJson());
+            if (i < actores.size() - 1) {
+                json.append(", ");
+            }
+        }
+        json.append("]");
+
+        json.append("}");
+        return json.toString();
     }
 }

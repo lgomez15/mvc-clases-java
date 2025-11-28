@@ -1,4 +1,4 @@
-package ejemplomvp;
+package ejemplomvp.models;
 
 import java.util.ArrayList;
 
@@ -37,5 +37,9 @@ public class Director {
             return null;
         }
         return new Director(csv.trim());
+    }
+
+    public String toJson() {
+        return "{\"nombre\": \"" + nombre + "\"}";
     }
 }

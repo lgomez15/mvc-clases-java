@@ -24,6 +24,11 @@ public class CineController {
         this.peliculas = new ArrayList<>();
         this.directores = new ArrayList<>();
         this.actores = new ArrayList<>();
+        try {
+            Files.createDirectories(Paths.get("repo"));
+        } catch (IOException e) {
+            System.err.println("Error al crear directorio repo: " + e.getMessage());
+        }
         cargarDatos();
     }
 
@@ -170,21 +175,21 @@ public class CineController {
             for (Director d : directores) {
                 lineasDirectores.add(d.toCSV());
             }
-            Files.write(Paths.get("directores.csv"), lineasDirectores, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/directores.csv"), lineasDirectores, StandardCharsets.UTF_8);
 
             // Guardar Actores
             List<String> lineasActores = new ArrayList<>();
             for (Actor a : actores) {
                 lineasActores.add(a.toCSV());
             }
-            Files.write(Paths.get("actores.csv"), lineasActores, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/actores.csv"), lineasActores, StandardCharsets.UTF_8);
 
             // Guardar Peliculas
             List<String> lineasPeliculas = new ArrayList<>();
             for (Pelicula p : peliculas) {
                 lineasPeliculas.add(p.toCSV());
             }
-            Files.write(Paths.get("peliculas.csv"), lineasPeliculas, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/peliculas.csv"), lineasPeliculas, StandardCharsets.UTF_8);
 
             System.out.println("Datos guardados correctamente.");
 
@@ -195,7 +200,7 @@ public class CineController {
 
     private void cargarDatos() {
         try {
-            Path pathDirectores = Paths.get("directores.csv");
+            Path pathDirectores = Paths.get("repo/directores.csv");
             if (Files.exists(pathDirectores)) {
                 List<String> lineas = Files.readAllLines(pathDirectores, StandardCharsets.UTF_8);
                 for (String linea : lineas) {
@@ -205,7 +210,7 @@ public class CineController {
                 }
             }
 
-            Path pathActores = Paths.get("actores.csv");
+            Path pathActores = Paths.get("repo/actores.csv");
             if (Files.exists(pathActores)) {
                 List<String> lineas = Files.readAllLines(pathActores, StandardCharsets.UTF_8);
                 for (String linea : lineas) {
@@ -215,7 +220,7 @@ public class CineController {
                 }
             }
 
-            Path pathPeliculas = Paths.get("peliculas.csv");
+            Path pathPeliculas = Paths.get("repo/peliculas.csv");
             if (Files.exists(pathPeliculas)) {
                 List<String> lineas = Files.readAllLines(pathPeliculas, StandardCharsets.UTF_8);
                 for (String linea : lineas) {
@@ -287,7 +292,7 @@ public class CineController {
                 }
             }
             jsonDirectores.append("\n]");
-            Files.write(Paths.get("directores.json"), jsonDirectores.toString().getBytes(StandardCharsets.UTF_8));
+            Files.write(Paths.get("repo/directores.json"), jsonDirectores.toString().getBytes(StandardCharsets.UTF_8));
 
             // Exportar Actores
             StringBuilder jsonActores = new StringBuilder("[\n");
@@ -298,7 +303,7 @@ public class CineController {
                 }
             }
             jsonActores.append("\n]");
-            Files.write(Paths.get("actores.json"), jsonActores.toString().getBytes(StandardCharsets.UTF_8));
+            Files.write(Paths.get("repo/actores.json"), jsonActores.toString().getBytes(StandardCharsets.UTF_8));
 
             // Exportar Peliculas
             StringBuilder jsonPeliculas = new StringBuilder("[\n");
@@ -309,7 +314,7 @@ public class CineController {
                 }
             }
             jsonPeliculas.append("\n]");
-            Files.write(Paths.get("peliculas.json"), jsonPeliculas.toString().getBytes(StandardCharsets.UTF_8));
+            Files.write(Paths.get("repo/peliculas.json"), jsonPeliculas.toString().getBytes(StandardCharsets.UTF_8));
 
             vista.mostrarMensaje("Datos exportados a JSON correctamente.");
         } catch (IOException e) {
@@ -324,21 +329,21 @@ public class CineController {
             for (Director d : directores) {
                 lineasDirectores.add(d.toCSV());
             }
-            Files.write(Paths.get("directores.txt"), lineasDirectores, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/directores.txt"), lineasDirectores, StandardCharsets.UTF_8);
 
             // Exportar Actores
             List<String> lineasActores = new ArrayList<>();
             for (Actor a : actores) {
                 lineasActores.add(a.toCSV());
             }
-            Files.write(Paths.get("actores.txt"), lineasActores, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/actores.txt"), lineasActores, StandardCharsets.UTF_8);
 
             // Exportar Peliculas
             List<String> lineasPeliculas = new ArrayList<>();
             for (Pelicula p : peliculas) {
                 lineasPeliculas.add(p.toCSV());
             }
-            Files.write(Paths.get("peliculas.txt"), lineasPeliculas, StandardCharsets.UTF_8);
+            Files.write(Paths.get("repo/peliculas.txt"), lineasPeliculas, StandardCharsets.UTF_8);
 
             vista.mostrarMensaje("Datos exportados a TXT correctamente.");
         } catch (IOException e) {

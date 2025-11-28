@@ -1,0 +1,6 @@
+src/ejemplomvp/models/Pelicula.java
+src/ejemplomvp/models/Director.java
+src/ejemplomvp/models/Actor.java
+src/ejemplomvp/CineController.java
+src/ejemplomvp/Main.java
+src/ejemplomvp/views/ConsoleView.java

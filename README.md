@@ -93,4 +93,4 @@ Seleccione una opción:
 3.  **Guardar y Salir**: Seleccione la opción `0` para guardar todos los cambios en la carpeta `repo/` y cerrar el programa.
 
 ### Nota sobre la Exportación
-Para detalles técnicos sobre cómo funciona la exportación a JSON y TXT, consulte el archivo [`explicacion_exportacion.md`](explicacion_exportacion.md).
+Para detalles técnicos sobre cómo funciona la exportación a JSON y TXT, consulte el archivo [`explicacion_exportacion.md`](./explicaciones/explicacion_exportacion.md).
